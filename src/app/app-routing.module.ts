@@ -9,6 +9,7 @@ import { ListeCategoriesComponent } from './pages/liste-categories/liste-categor
 import { LoginComponent } from './pages/login/login.component';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { produitGuard } from './guards/produit.guard';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   { path: 'produits', component: ProduitsComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'listeCategories', component: ListeCategoriesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'app-forbidden', component: ForbiddenComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '', redirectTo: 'produits', pathMatch: 'full' },
 ];
 

@@ -23,8 +23,8 @@
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> {{authService.loggedUser}} </a>
       <div class="dropdown-menu">
-        <a *ngIf="!authService.isloggedIn" class="dropdown-item" href="#">login</a>
-        <a *ngIf="authService.isloggedIn" class="dropdown-item" href="#">logout</a>
+        <a *ngIf="!authService.isloggedIn" class="dropdown-item" routerLink="/login">login</a>
+        <a *ngIf="authService.isloggedIn" class="dropdown-item" (click)="onLogout()">logout</a>
         <a class="dropdown-item" href="#">Profile</a>
       </div>
     </li>

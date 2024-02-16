@@ -4,6 +4,7 @@ import { Categorie } from '../model/categorie.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CategorieWrapper } from '../model/categorie-wrapped.model';
+import { AuthService } from './auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -19,28 +20,45 @@ export class ProduitService {
   apiURL: string = 'http://localhost:8080/produits/api';
   apiURLCat: string = 'http://localhost:8080/produits/cat';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  getHeaders() {
+    let jwt = this.authService.getToken();
+    jwt = 'Bearer ' + jwt;
+    let httpHeaders = new HttpHeaders({ Authorization: jwt });
+    return {
+      headers: httpHeaders,
+    };
+  }
 
   listeProduits(): Observable<Produit[]> {
-    return this.http.get<Produit[]>(this.apiURL);
+    return this.http.get<Produit[]>(this.apiURL + '/all');
   }
 
   ajouterProduit(prod: Produit): Observable<Produit> {
-    return this.http.post<Produit>(this.apiURL, prod, httpOptions);
+    return this.http.post<Produit>(
+      this.apiURL + '/addprod',
+      prod,
+      this.getHeaders()
+    );
   }
 
   supprimerProduit(id: number) {
     const url = `${this.apiURL}/${id}`;
-    return this.http.delete(url, httpOptions);
+    return this.http.delete(url + '/delprod', this.getHeaders());
   }
 
   consulterProduit(id: number): Observable<Produit> {
-    const url = `${this.apiURL}/${id}`;
+    const url = `${this.apiURL}/getbyid/${id}`;
     return this.http.get<Produit>(url);
   }
 
   updateProduit(prod: Produit): Observable<Produit> {
-    return this.http.put<Produit>(this.apiURL, prod, httpOptions);
+    return this.http.put<Produit>(
+      this.apiURL + '/updateprod',
+      prod,
+      this.getHeaders()
+    );
   }
 
   trierProduits() {
@@ -56,7 +74,7 @@ export class ProduitService {
   }
 
   listeCategories(): Observable<CategorieWrapper> {
-    return this.http.get<CategorieWrapper>(this.apiURLCat);
+    return this.http.get<CategorieWrapper>(this.apiURLCat, this.getHeaders());
   }
 
   consulterCategorie(id: number): Categorie {
@@ -65,7 +83,7 @@ export class ProduitService {
 
   rechercherParCategorie(idCat: number): Observable<Produit[]> {
     const url = `${this.apiURL}/prodscat/${idCat}`;
-    return this.http.get<Produit[]>(url);
+    return this.http.get<Produit[]>(url, this.getHeaders());
   }
 
   rechercherParNom(nom: string): Observable<Produit[]> {
@@ -74,6 +92,6 @@ export class ProduitService {
   }
 
   ajouterCategorie(cat: Categorie): Observable<Categorie> {
-    return this.http.post<Categorie>(this.apiURLCat, cat, httpOptions);
+    return this.http.post<Categorie>(this.apiURLCat, cat, this.getHeaders());
   }
 }
