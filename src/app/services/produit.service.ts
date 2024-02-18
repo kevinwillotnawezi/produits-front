@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CategorieWrapper } from '../model/categorie-wrapped.model';
 import { AuthService } from './auth.service';
+import { Image } from '../model/image.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -63,10 +64,12 @@ export class ProduitService {
 
   trierProduits() {
     this.produits = this.produits.sort((n1, n2) => {
-      if (n1.idProduit! > n2.idProduit!) {
+      // if (n1.idProduit! > n2.idProduit!) {
+      if (n1.id! > n2.id!) {
         return 1;
       }
-      if (n1.idProduit! < n2.idProduit!) {
+      // if (n1.idProduit! < n2.idProduit!) {
+      if (n1.id! < n2.id!) {
         return -1;
       }
       return 0;
@@ -93,5 +96,17 @@ export class ProduitService {
 
   ajouterCategorie(cat: Categorie): Observable<Categorie> {
     return this.http.post<Categorie>(this.apiURLCat, cat, this.getHeaders());
+  }
+
+  uploadImage(file: File, filename: string): Observable<Image> {
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${this.apiURL + '/image/upload'}`;
+    return this.http.post<Image>(url, imageFormData);
+  }
+
+  loadImage(id: number): Observable<Image> {
+    const url = `${this.apiURL + '/image/get/info'}/${id}`;
+    return this.http.get<Image>(url);
   }
 }

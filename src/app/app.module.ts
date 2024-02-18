@@ -23,6 +23,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { TokenInterceptor } from './services/token.interceptor';
 import { RegisterComponent } from './pages/register/register.component';
+import { VerifEmailComponent } from './pages/verif-email/verif-email.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import { RegisterComponent } from './pages/register/register.component';
     LoginComponent,
     ForbiddenComponent,
     RegisterComponent,
+    VerifEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,8 @@ import { RegisterComponent } from './pages/register/register.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(), // ToastrModule added
     // Ng2SearchPipeModule,
   ],
   providers: [

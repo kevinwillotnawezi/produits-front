@@ -14,6 +14,7 @@ export class AuthService {
   public roles!: string[];
   apiURL: string = 'http://localhost:8081/users';
   token!: string;
+  public regitredUser: User = new User();
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -74,5 +75,17 @@ export class AuthService {
     return this.http.post<User>(this.apiURL + '/register', user, {
       observe: 'response',
     });
+  }
+
+  setRegistredUser(user: User) {
+    this.regitredUser = user;
+  }
+
+  getRegistredUser() {
+    return this.regitredUser;
+  }
+
+  validateEmail(code: string) {
+    return this.http.get<User>(this.apiURL + '/verifyEmail/' + code);
   }
 }

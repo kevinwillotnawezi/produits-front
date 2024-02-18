@@ -10,6 +10,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { produitGuard } from './guards/produit.guard';
 import { RegisterComponent } from './pages/register/register.component';
+import { VerifEmailComponent } from './pages/verif-email/verif-email.component';
 
 const routes: Routes = [
   { path: 'produits', component: ProduitsComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'app-forbidden', component: ForbiddenComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'verifEmail', component: VerifEmailComponent },
   { path: '', redirectTo: 'produits', pathMatch: 'full' },
 ];
 

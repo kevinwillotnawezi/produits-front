@@ -17,7 +17,8 @@
         </tr>
         <tbody *ngFor="let produit of produits">
           <tr>
-            <td>{{produit.idProduit}}</td>
+            <!-- <td>{{produit.idProduit}}</td> -->
+            <td>{{produit.id}}</td>
             <td>{{produit.nomProduit}}</td>
             <td>{{produit.prixProduit}}</td>
             <td>{{produit.dateCreation | date:'dd/MM/yyyy'}}</td>

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../model/user.model';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +15,13 @@ export class RegisterComponent {
   confirmPassword?: string;
   myForm!: FormGroup;
   err: any; //TODO check
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -31,8 +36,10 @@ export class RegisterComponent {
   onRegister() {
     this.authService.registerUser(this.user).subscribe({
       next: (res) => {
-        alert('veillez confirmer votre email');
-        // this.router.navigate(["/verifEmail",this.user.email]);
+        this.authService.setRegistredUser(this.user);
+        // alert('veillez confirmer votre email');
+        this.toastr.success('veillez confirmer votre email', 'Confirmation');
+        this.router.navigate(['/verifEmail']);
       },
       error: (err: any) => {
         if ((err.status = 400)) {
