@@ -38,9 +38,18 @@ export class AddProduitComponent implements OnInit {
         this.newProduit.categorie = this.categories.find(
           (cat) => cat.idCat == this.newIdCat
         )!;
-        this.produitService.ajouterProduit(this.newProduit).subscribe(() => {
-          this.router.navigate(['produits']);
-        });
+        this.produitService
+          .ajouterProduit(this.newProduit)
+          .subscribe((prod) => {
+            // this.produitService
+            //   .uploadImageFS(
+            //     this.uploadedImage,
+            //     this.uploadedImage.name,
+            //     prod.id
+            //   )
+            //   .subscribe((response: any) => {});
+            this.router.navigate(['produits']);
+          });
       });
 
     //   .ajouterProduit( this.newProduit ).subscribe( ( prod ) => {

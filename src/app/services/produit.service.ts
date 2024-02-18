@@ -109,4 +109,11 @@ export class ProduitService {
     const url = `${this.apiURL + '/image/get/info'}/${id}`;
     return this.http.get<Image>(url);
   }
+
+  uploadImageFS(file: File, filename: string, idProd: number): Observable<any> {
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${this.apiURL + '/image/uploadFS'}/${idProd}`;
+    return this.http.post(url, imageFormData);
+  }
 }

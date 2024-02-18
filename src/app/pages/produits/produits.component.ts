@@ -11,6 +11,7 @@ import { Image } from '../../model/image.model';
 })
 export class ProduitsComponent implements OnInit {
   produits!: Produit[];
+  apiurl: string = 'http://localhost:8080/produits/api';
 
   constructor(
     private produitService: ProduitService,
